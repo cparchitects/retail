@@ -1,0 +1,58 @@
+# Enable Python support and load DesignScript library
+import clr
+clr.AddReference('ProtoGeometry')
+from Autodesk.DesignScript.Geometry import *
+
+#Import Revit API
+clr.AddReference('RevitAPI')
+from Autodesk.Revit.DB import *
+
+#Import Manager Classes
+clr.AddReference('RevitServices')
+from RevitServices.Persistence import DocumentManager
+from RevitServices.Transactions import TransactionManager
+doc = DocumentManager.Instance.CurrentDBDocument
+
+#Import DSType Method
+clr.AddReference('RevitNodes')
+import Revit
+clr.ImportExtensions(Revit.Elements)
+
+# The inputs to this node will be stored as a list in the IN variables.
+bayWidth = IN[0]
+bayDepth = IN[1]
+buildingWidth = IN[2]
+buildingDepth = IN[3]
+level = UnwrapElement(IN[4])
+
+incriment = int(bayWidth)
+
+
+# Place your code below this line
+
+pt1 = XYZ(0,0,0)
+pt2 = XYZ(bayWidth, 0, 0)
+
+xPointsStorefront = [][]
+
+for points in range(0, buildingWidth, incriment):
+	xPointsStorefront.append(points)
+
+
+TransactionManager.Instance.EnsureInTransaction(doc)
+
+#line = Line.CreateBound(pt1,pt2)
+#wall = Wall.Create(doc, line, level.Id, False)
+
+
+#Assign Document
+
+
+#Start Transaction
+
+	
+#End Transaction
+TransactionManager.Instance.TransactionTaskDone()
+
+# Assign your output to the OUT variable.
+OUT = xPointsStorefront
